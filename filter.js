@@ -25,7 +25,6 @@ input.addEventListener("input", (e) => {
 			nameheadings[i].style.display = 'block';
 		}
 	}
-	
 });
 
 
