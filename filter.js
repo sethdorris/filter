@@ -7,13 +7,13 @@ let hulkMovies;
 
 //Work to populate the DOM with at least Hulk Movies, and use the filter function on that data
 (function getHulkMovies() {
-		return new Promise( (resolve, reject) => {
-			let xhr = new XMLHttpRequest();
-			xhr.open("GET", "http://www.omdbapi.com/?s=hulk&r=json");
-			xhr.onload = resolve;
-			xhr.onerror = reject;
-			xhr.send();
-		}); 
+	return new Promise( (resolve, reject) => {
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://www.omdbapi.com/?s=hulk&r=json");
+		xhr.onload = resolve;
+		xhr.onerror = reject;
+		xhr.send();
+	}); 
 })().then( (data) => {
 	hulkMovies = data.target.response;
 	console.log("Hulks", hulkMovies)
