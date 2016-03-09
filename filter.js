@@ -6,21 +6,23 @@ let namediv = document.getElementById("names");
 let hulkMovies;
 
 //Work to populate the DOM with at least Hulk Movies, and use the filter function on that data
-(function getHulkMovies() {
+var getHulkMovies = function () {
 	return new Promise( (resolve, reject) => {
 		let xhr = new XMLHttpRequest();
-		xhr.open("GET", "http://www.omdbapi.com/?s=hulk&r=json");
+		xhr.open("GET", "https://www.omdbapi.com/?s=hulk");
 		xhr.onload = resolve;
 		xhr.onerror = reject;
 		xhr.send();
 	}); 
-})().then( (data) => {
-	hulkMovies = data.target.response;
-	console.log("Hulks", hulkMovies)
+}
+
+getHulkMovies()
+.then( (data) => {
+	let response = JSON.parse(data.target.response);
+	populateDomWithHulkMovies(response);
 }).catch( (error) => {
 	console.log("error", error);
 });
-
 
 input.addEventListener("input", (e) => {
 	let searchby = input.value.toUpperCase();
@@ -43,9 +45,11 @@ input.addEventListener("input", (e) => {
 			nameheadings[i].style.display = 'block';
 		}
 	}
-	
 });
 
-
-
-
+var populateDomWithHulkMovies = function(movies) {
+	let moviesArray = movies.Search;
+	for (let i = 0; i < 10; i++) {
+		namediv.innerHTML += "<h4>" + moviesArray[i].Title + "</h4>";
+	}
+};
